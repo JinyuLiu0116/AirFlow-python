@@ -34,5 +34,5 @@ with DAG(
     #task2.set_downstream(task3)
 
     task1 >> task2 >> task3
-    
+    #differen version of 
     task1 >> [task2/task3]
