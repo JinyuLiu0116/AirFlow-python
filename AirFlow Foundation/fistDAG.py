@@ -1,5 +1,5 @@
 from airflow import DAG
-from airflow.operator.bash import BashOperator
+from airflow.operators.bash import BashOperator
 from datetime import datetime, timedelta
 
 args = {
@@ -14,12 +14,16 @@ with DAG(
     default_args = args,
     description = 'This is our first dag that wewrite',
     start_date = datetime(2024, 10, 27, 2),
-    scheduler_interval = '@daily'
+    schedule_interval = '@daily'
 
 ) as dag:
     task1 = BashOperator(
         task_id = 'first_task',
-        bash_command = "echo hellow world, this is our first task!"
+        bash_command = "echo hello world, this is our first task!"
+    )
+    task2 = BashOperator(
+        task_id = 'second_task',
+        bash_command = "echo hello world, this is our second task!"
     )
 
-    task1
+    task1.set_downstream(task2)
