@@ -30,5 +30,9 @@ with DAG(
         bash_command = "Hey, I am the hello world version three!"
     )
 
-    task1.set_downstream(task2)
-    task2.set_downstream(task3)
+    #task1.set_downstream(task2)
+    #task2.set_downstream(task3)
+
+    task1 >> task2 >> task3
+    
+    task1 >> [task2/task3]
