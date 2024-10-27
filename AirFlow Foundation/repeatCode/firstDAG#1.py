@@ -1,5 +1,6 @@
 from airflow import DAG
 from datetime import datetime, timedelta #timedelta for retry_delate
+from airflow.operators.bash import BashOperator #create task, a task is a implementation of an operator
 
 #common parameters will be used to initialize the 
 #operator in default odds
@@ -20,4 +21,15 @@ with DAG(
     start_date = datetime(2024, 10, 27, 8),
     scheduler_interval = '@daily'
 )as dag:
-    pass
+    task1 = BashOperator(
+        task_id = 'first_task',
+        bash_command = "Hello world, this is first task!"
+    )
+    task2 = BashOperator(
+        task_id = 'second_task',
+        bash_command = "Greating to all, this is second task!"
+    )
+    task3 = BashOperator(
+        task_id = 'third_task',
+        bash_command = "Good bye everyone, this is last task!"
+    )
