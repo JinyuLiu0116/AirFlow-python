@@ -19,7 +19,7 @@ with DAG(
     default_args = args,
     description = "This is practing in order to be familir with DAGs.",
     start_date = datetime(2024, 10, 27, 8),
-    scheduler_interval = '@daily'
+    schedule_interval = '@daily'
 )as dag:
     task1 = BashOperator(
         task_id = 'first_task',
@@ -33,3 +33,5 @@ with DAG(
         task_id = 'third_task',
         bash_command = "Good bye everyone, this is last task!"
     )
+
+    task1 >> task2 >> task3
