@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 args = {
     'owner' : 'coder2j',
     'retries' : 3,
-    'retry_delay' : timedelta(minutes=1)
+    'retry_delate' : timedelta(minutes=1)
 }
 
 
