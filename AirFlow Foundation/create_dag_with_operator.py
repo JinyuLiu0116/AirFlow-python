@@ -8,11 +8,12 @@ args = {
     'retry_delay' : timedelta(minutes= 2)
 }
 
-def greet(name, age):
+def greet(ti, age):
+    name = ti.xcoms_pull(task_ids='get_name')
     print("Hello World! My name is %s,\nand I am %s years old!", name, age)
 
-
-
+def get_name():
+    return 'Jerry'
 
 with DAG(
     default_args = args,
@@ -24,8 +25,12 @@ with DAG(
     task1 = PythonOperator(
         task_id = 'greet',
         python_callable = greet,
-        op_kwargs = {'name': 'Tom', 'age': 20}
+        op_kwargs = {'age': 20}
+    )
+    task2 = PythonOperator(
+        task_id = 'get_name',
+        python_callable = get_name,
     )
 
-    task1
+    task2 >> task1
    
