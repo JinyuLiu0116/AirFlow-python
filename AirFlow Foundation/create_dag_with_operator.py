@@ -1,4 +1,5 @@
 from airflow import DAG
+from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
 
 args = {
@@ -7,7 +8,8 @@ args = {
     'retry_delay' : timedelta(minutes= 2)
 }
 
-
+def greet():
+    print("Hello World!")
 
 
 
@@ -18,3 +20,10 @@ with DAG(
     start_date = datetime(2021, 10, 6),
     schedule_interval = '@daily'
 ) as dag:
+    task1 = PythonOperator(
+        task_id = 'greet',
+        python_callable = greet
+    )
+
+    task1
+   
