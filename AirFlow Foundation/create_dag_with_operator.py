@@ -9,11 +9,13 @@ args = {
 }
 
 def greet(ti, age):
-    name = ti.xcoms_pull(task_ids='get_name')
-    print("Hello World! My name is %s,\nand I am %s years old!", name, age)
+    first_name = ti.xcom_pull(task_ids='get_name', key='first_name')
+    last_name = ti.xcom_pull(task_ids='get_name', key='last_name' )
+    print("Hello World! My name is %s %s,\nand I am %s years old!", first_name, last_name, age)
 
-def get_name():
-    return 'Jerry'
+def get_name(ti):
+    ti.xcom_push(key='first_name', value='Jerry')
+    ti.xcom_push(key='last_name', value='Fridman')
 
 with DAG(
     default_args = args,
