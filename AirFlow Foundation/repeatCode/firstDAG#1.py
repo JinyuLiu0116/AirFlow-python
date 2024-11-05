@@ -10,6 +10,8 @@ args = {
     'retry_delate': timedelta(minutes=1)
 }
 
+def function():
+    pass
 
 
 #use with statement to create an instance of DAG
