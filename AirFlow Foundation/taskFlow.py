@@ -14,19 +14,22 @@ args ={
     schedule_interval = None)
 def hello_world_etl():
     @task()
-    def get_name():
-        return "Jinyu"
+    def get_name(multiple_outputs=True):
+        return {
+            'frist_name': 'Jinyu',
+            'last_name': 'Liu'
+        }
     
     @task()
     def get_age():
         return 60
     
     @task()
-    def greet(name, age):
-        print("Hello world, my name is %s, I am %s years old.",name ,age)
+    def greet(first_name, last_name, age):
+        print("Hello world, my name is %s %s, I am %s years old.", first_name, last_name, age)
 
     name = get_name
     age = get_age
-    greet(name, age)
+    greet(first_name=name['first_name'], last_name=name['last_name'], age=age)
 
 greet_dag = hello_world_etl()
