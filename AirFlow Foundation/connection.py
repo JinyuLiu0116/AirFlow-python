@@ -19,6 +19,12 @@ with DAG(
         task_id = 'create_postgres_table',
         postgres_conn_id = 'postgres_localhost',
         sql = """
-            
+            CREATE TABLE IF NOT EXISTS dag_table(
+                dt date,
+                dag_id character varying,
+                primary key (dt, dag_id)
+            )
         """
     )
+
+    task1
