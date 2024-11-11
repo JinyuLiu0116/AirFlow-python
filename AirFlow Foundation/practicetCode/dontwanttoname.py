@@ -1,6 +1,7 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.operators.dummy import DummyOperator
+from airflow.providers.google.cloud.operators.bigquery import BigQueryInsertJobOperator
 from datetime import datetime, timedelta
 
 args={
@@ -45,7 +46,7 @@ with DAG(
         python_callable=get_age,
         dag=dag
     )
-    
+
     end = DummyOperator(task_id ='end')
 
     start >> [task2, task3] >> task1 >> end
