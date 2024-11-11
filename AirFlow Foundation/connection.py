@@ -27,4 +27,14 @@ with DAG(
         """
     )
 
-    task1
+    task2 = PostgresOperator(
+        task_id = 'insert_into_table',
+        postgres_conn_id = 'postgres_localhost',
+        sql="""
+            INSERT INTO dag_table (dt, dag_id value ('{{ ds }}', '{{dag.dag_id}}'))
+
+        """
+
+    )
+
+    task1 >> task2
