@@ -10,8 +10,15 @@ args = {
 
 
 with DAG(
-    
-
-
+    dag_id = 'dag_with_postgres_operator',
+    default_args = args,
+    start_date = datetime.now(),
+    schedule_interval = None
 ) as dag:
-    pass
+    task1=PostgresOperator(
+        task_id = 'create_postgres_table',
+        postgres_conn_id = 'postgres_localhost',
+        sql = """
+            
+        """
+    )
