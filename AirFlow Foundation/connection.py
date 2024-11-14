@@ -34,7 +34,14 @@ with DAG(
             INSERT INTO dag_table (dt, dag_id value ('{{ ds }}', '{{dag.dag_id}}'))
 
         """
-
     )
+    task3 = PostgresOperator(
+        task_id = 'delete_data_from_table',
+        posrgres_conn_id = 'postgres_localhost',
+        sql="""
+            DELETE FROM dag_table WHERE dt = '{{ ds }}' and dag_id = '{{dag.dag_id}}';
+        """
+    )
+    
 
-    task1 >> task2
+    task1 >> task2 >> task3
